@@ -1,0 +1,14 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  color: #5A5A5A;
+  background-color: #f4f4f4;
+}
+#message {
+  font-size: 2em; /* Adjust the size as needed */
+}
