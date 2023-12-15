@@ -12,3 +12,19 @@ html, body {
 #message {
   font-size: 2em; /* Adjust the size as needed */
 }
+
+/* Media query for tablets */
+@media (max-width: 768px) {
+  body {
+      font-size: 20px;
+      margin-top: 15%;
+  }
+}
+
+/* Media query for smaller devices (mobile phones) */
+@media (max-width: 480px) {
+  body {
+      font-size: 16px;
+      margin-top: 10%;
+  }
+}
