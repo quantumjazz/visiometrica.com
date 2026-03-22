@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visiometrica — Data Visualization & Analytics</title>
   <meta name="description" content="Visiometrica: Economic data dashboards for research and analysis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -13,169 +16,441 @@
     }
 
     :root {
-      --bg: #0b0f19;
-      --surface: #131825;
-      --surface-hover: #1a2035;
-      --border: #1e2a42;
-      --text: #e2e8f0;
-      --text-muted: #8892a8;
-      --accent: #3b82f6;
-      --accent-hover: #60a5fa;
+      --bg: #ffffff;
+      --bg-alt: #f4f4f4;
+      --surface: #ffffff;
+      --surface-hover: #e8e8e8;
+      --border: #e0e0e0;
+      --border-strong: #c6c6c6;
+      --text: #161616;
+      --text-secondary: #525252;
+      --text-muted: #8d8d8d;
+      --accent: #0f62fe;
+      --accent-hover: #0353e9;
+      --teal: #007d79;
+      --purple: #8a3ffc;
+      --spacing: clamp(1rem, 4vw, 2rem);
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: var(--bg);
+      font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top bar */
+    .topbar {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      padding: 0 var(--spacing);
+      height: 48px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
     }
 
-    header {
-      text-align: center;
-      padding: 4rem 1.5rem 2rem;
+    .brand {
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .logo {
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      margin-bottom: 0.75rem;
+    /* Hero */
+    .hero {
+      position: relative;
+      padding: clamp(4rem, 10vw, 8rem) var(--spacing) clamp(3rem, 8vw, 6rem);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
     }
 
-    .logo span {
-      color: var(--accent);
+    .hero-content {
+      max-width: 720px;
     }
 
-    .tagline {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 480px;
-      margin: 0 auto;
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.25rem);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .hero h1 .highlight {
+      color: var(--teal);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-secondary);
       line-height: 1.6;
+      max-width: 560px;
+      margin-bottom: 2.5rem;
     }
 
-    main {
-      flex: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
-      padding: 2rem 1.5rem 4rem;
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.875rem 1.25rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
     }
 
-    .cards {
+    .hero-cta:hover {
+      background: var(--accent-hover);
+    }
+
+    .hero-cta svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .hero-cta:hover svg {
+      transform: translateX(3px);
+    }
+
+    /* Section label */
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+    }
+
+    /* Dashboard tiles */
+    .dashboards {
+      padding: clamp(3rem, 6vw, 5rem) var(--spacing);
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tiles {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      max-width: 780px;
-      width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 0;
     }
 
-    .card {
+    .tile {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
+      padding: 2.5rem 2rem 2rem;
       text-decoration: none;
       color: var(--text);
-      transition: background 0.2s, border-color 0.2s, transform 0.2s;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 1rem;
+      transition: background 0.2s;
     }
 
-    .card:hover, .card:focus-visible {
+    .tile + .tile {
+      border-left: none;
+    }
+
+    .tile:hover {
       background: var(--surface-hover);
-      border-color: var(--accent);
-      transform: translateY(-2px);
-      outline: none;
     }
 
-    .card-icon {
-      font-size: 1.75rem;
-      width: 3rem;
-      height: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(59, 130, 246, 0.1);
-      border-radius: 8px;
-      margin-bottom: 0.25rem;
+    .tile-eyebrow {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
-    .card h2 {
-      font-size: 1.25rem;
+    .tile:nth-child(1) .tile-eyebrow { color: var(--teal); }
+    .tile:nth-child(2) .tile-eyebrow { color: var(--purple); }
+
+    .tile h2 {
+      font-size: 1.5rem;
       font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
     }
 
-    .card p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.6;
+    .tile p {
+      color: var(--text-secondary);
+      font-size: 0.9375rem;
+      line-height: 1.7;
       flex: 1;
     }
 
-    .card-arrow {
-      color: var(--accent);
-      font-size: 0.9rem;
-      font-weight: 500;
+    .tile-tags {
       display: flex;
-      align-items: center;
-      gap: 0.35rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       margin-top: 0.5rem;
     }
 
-    .card:hover .card-arrow {
-      gap: 0.6rem;
+    .tile-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.6875rem;
+      font-weight: 400;
+      padding: 0.25rem 0.625rem;
+      background: var(--bg-alt);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
     }
 
-    footer {
-      text-align: center;
+    .tile:hover .tile-tag {
+      background: var(--bg);
+    }
+
+    .tile-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent);
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      transition: gap 0.2s;
+    }
+
+    .tile:hover .tile-link {
+      gap: 0.75rem;
+    }
+
+    .tile-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* About section */
+    .about {
+      padding: clamp(3rem, 6vw, 5rem) var(--spacing);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
+      max-width: 1200px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-text h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .about-text p {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .stat {
       padding: 1.5rem;
-      color: var(--text-muted);
-      font-size: 0.8rem;
-      border-top: 1px solid var(--border);
+      background: var(--bg);
     }
 
-    @media (max-width: 680px) {
-      header { padding: 3rem 1.25rem 1.5rem; }
-      .logo { font-size: 1.75rem; }
-      .tagline { font-size: 1rem; }
-      .cards { grid-template-columns: 1fr; }
-      .card { padding: 1.5rem; }
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--teal);
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem var(--spacing);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg);
+    }
+
+    .footer-brand {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .tiles {
+        grid-template-columns: 1fr;
+      }
+
+      .tile + .tile {
+        border-left: 1px solid var(--border);
+        border-top: none;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+    }
+
+    /* Animations */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-up {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.5s ease forwards;
+      }
+
+      .fade-up:nth-child(2) { animation-delay: 0.1s; }
+      .fade-up:nth-child(3) { animation-delay: 0.2s; }
+
+      .tile {
+        opacity: 0;
+        transform: translateY(16px);
+        animation: fadeUp 0.5s ease forwards;
+      }
+
+      .tile:nth-child(1) { animation-delay: 0.3s; }
+      .tile:nth-child(2) { animation-delay: 0.4s; }
+
+      @keyframes fadeUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="logo">Visio<span>metrica</span></div>
-    <p class="tagline">Economic data dashboards for research and analysis</p>
-  </header>
+  <nav class="topbar">
+    <a class="brand" href="/">Visiometrica</a>
+  </nav>
 
-  <main>
-    <div class="cards">
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="fade-up">
+        Economic data,<br>
+        <span class="highlight">visualized.</span>
+      </h1>
+      <p class="fade-up">Interactive dashboards for economic research — from macroeconomic indicators to EU sector analysis and composite indices.</p>
+      <a class="hero-cta fade-up" href="#dashboards">
+        Explore dashboards
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </section>
 
-      <a class="card" href="https://uni-dashboard.visiometrica.com">
-        <div class="card-icon">&#127891;</div>
+  <section class="dashboards" id="dashboards">
+    <div class="section-label">Dashboards</div>
+    <div class="tiles">
+
+      <a class="tile" href="https://uni-dashboard.visiometrica.com">
+        <span class="tile-eyebrow">University Research</span>
         <h2>University Dashboard</h2>
         <p>Economic data dashboard for university research. Explore macroeconomic indicators and trends across countries and time periods.</p>
-        <div class="card-arrow">Open dashboard &#8594;</div>
+        <div class="tile-tags">
+          <span class="tile-tag">Research</span>
+          <span class="tile-tag">Macroeconomics</span>
+          <span class="tile-tag">Time series</span>
+        </div>
+        <div class="tile-link">
+          Open dashboard
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </div>
       </a>
 
-      <a class="card" href="https://econdash.visiometrica.com">
-        <div class="card-icon">&#128202;</div>
+      <a class="tile" href="https://econdash.visiometrica.com">
+        <span class="tile-eyebrow">EU / OECD Analysis</span>
         <h2>Eurostat Economic Dashboard</h2>
-        <p>EU/OECD economic data visualization comparing Bulgaria against EU27 averages. Covers GDP, employment, sector analysis, and the Sector Development Index (SDI-EU).</p>
-        <div class="card-arrow">Open dashboard &#8594;</div>
+        <p>Economic data visualization comparing Bulgaria against EU27 averages. Interactive charts and the Sector Development Index (SDI-EU).</p>
+        <div class="tile-tags">
+          <span class="tile-tag">GDP</span>
+          <span class="tile-tag">Employment</span>
+          <span class="tile-tag">Sectors</span>
+          <span class="tile-tag">SDI-EU</span>
+        </div>
+        <div class="tile-link">
+          Open dashboard
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </div>
       </a>
 
     </div>
-  </main>
+  </section>
+
+  <section class="about">
+    <div class="about-text">
+      <h3>Built for research</h3>
+      <p>Visiometrica provides interactive economic dashboards designed for researchers, academics, and analysts. Our tools bring together data from Eurostat, OECD, and other sources into clear, explorable visualizations.</p>
+    </div>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-value">EU27</div>
+        <div class="stat-label">Countries covered</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">SDI-EU</div>
+        <div class="stat-label">Composite index</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">Live</div>
+        <div class="stat-label">Eurostat data</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">Open</div>
+        <div class="stat-label">Free to use</div>
+      </div>
+    </div>
+  </section>
 
   <footer>
-    &copy; 2026 Visiometrica
+    <span class="footer-brand">&copy; 2026 Visiometrica</span>
+    <div class="footer-links">
+      <a href="https://uni-dashboard.visiometrica.com">University Dashboard</a>
+      <a href="https://econdash.visiometrica.com">Eurostat Dashboard</a>
+    </div>
   </footer>
 
 </body>
